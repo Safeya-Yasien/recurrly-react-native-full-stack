@@ -1,3 +1,13 @@
+nativewind for styles like tailwindcss
+i used v5
+https://www.nativewind.dev/v5/getting-started/installation
+
+
+
+icons
+https://icons.expo.fyi/Index
+
+
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
