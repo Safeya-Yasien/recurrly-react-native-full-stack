@@ -1,48 +1,54 @@
+import { tabs } from "@/constants/data";
 import "@/global.css";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import Feather from "@expo/vector-icons/Feather";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
+import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabsLayout() {
+  const insets = useSafeAreaInsets();
+
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Home",
-          tabBarIcon: ({ color }) => (
-            <AntDesign name="home" size={24} color="black" />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="subscriptions"
-        options={{
-          title: "Subscriptions",
-          tabBarIcon: ({ color }) => (
-            <Feather name="pocket" size={24} color="black" />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="insights"
-        options={{
-          title: "Insights",
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="insights" size={24} color="black" />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: "Settings",
-          tabBarIcon: ({ color }) => (
-            <AntDesign name="setting" size={24} color="black" />
-          ),
-        }}
-      />
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarLabelVisibilityMode: "unlabeled",
+
+        tabBarStyle: {
+          position: "absolute",
+          bottom: Math.max(insets.bottom, 25),
+          height: 72,
+          elevation: 0,
+          //  borderTopWidth: 0,
+          marginHorizontal: 20,
+        },
+        tabBarBackground: () => (
+          <View className="flex-1 bg-primary rounded-full "></View>
+        ),
+        tabBarItemStyle: {
+          paddingVertical: 8,
+          alignItems: "center",
+        },
+        tabBarIconStyle: {
+          width: 48,
+          height: 48,
+        },
+      }}
+    >
+      {tabs.map((tab) => (
+        <Tabs.Screen
+          key={tab.name}
+          name={tab.name}
+          options={{
+            title: tab.title,
+            tabBarIcon: ({ focused }) => (
+              <View className={`tabs-pill ${focused ? "tabs-active" : ""}  `}>
+                <Ionicons name={tab.icon} color="#fff8e7" size={32} />
+              </View>
+            ),
+          }}
+        />
+      ))}
     </Tabs>
   );
 }

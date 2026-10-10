@@ -2,11 +2,14 @@ nativewind for styles like tailwindcss
 i used v5
 https://www.nativewind.dev/v5/getting-started/installation
 
-
-
 icons
 https://icons.expo.fyi/Index
+https://github.com/expo/vector-icons
 
+what is elevation in tabsBarStyle?
+make shadow on android only because react native not support shadowColor, shadowOpacity, so we use elevation
+so we use shadowColor and elevation both
+shadowColor for IOS and elevation for android
 
 # Welcome to your Expo app 👋
 

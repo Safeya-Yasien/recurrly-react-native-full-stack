@@ -1,5 +1,10 @@
-import { View } from "react-native";
+import { Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
-  return <View>Home</View>;
+  return (
+    <SafeAreaView className="f bg-background">
+      <Text>Home</Text>
+    </SafeAreaView>
+  );
 }
