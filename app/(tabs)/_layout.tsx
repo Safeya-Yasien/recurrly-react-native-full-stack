@@ -1,6 +1,6 @@
+import AppIcon from "@/components/AppIcon";
 import { tabs } from "@/constants/data";
 import "@/global.css";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -43,7 +43,7 @@ export default function TabsLayout() {
             title: tab.title,
             tabBarIcon: ({ focused }) => (
               <View className={`tabs-pill ${focused ? "tabs-active" : ""}  `}>
-                <Ionicons name={tab.icon} color="#fff8e7" size={32} />
+                <AppIcon icon={tab.icon} color="#fff8e7" size={32} />
               </View>
             ),
           }}
