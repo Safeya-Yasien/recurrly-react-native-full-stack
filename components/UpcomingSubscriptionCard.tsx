@@ -2,6 +2,7 @@ import { UpcomingSubscription } from "@/constants/data";
 import React from "react";
 import { Text, View } from "react-native";
 import AppIcon from "./AppIcon";
+import { formatPrice } from "@/utils/formatPrice";
 
 const UpcomingSubscriptionCard = ({
   icon,
@@ -16,9 +17,7 @@ const UpcomingSubscriptionCard = ({
         <AppIcon icon={icon} size={40} />
 
         <View>
-          <Text className="upcoming-price">
-            {currency} {price}
-          </Text>
+          <Text className="upcoming-price">{formatPrice(price, currency)}</Text>
           <Text className="upcoming-meta" numberOfLines={1}>
             {daysLeft > 1 ? `${daysLeft} days left` : "Last day"}
           </Text>

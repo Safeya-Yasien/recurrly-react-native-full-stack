@@ -12,16 +12,25 @@ import images from "@/constants/images";
 import { formatDate } from "@/utils/formatDate";
 import { formatPrice } from "@/utils/formatPrice";
 import { styled } from "nativewind";
+import { useState } from "react";
 import { FlatList, Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
 
 const SafeAreaView = styled(RNSafeAreaView);
 
 export default function Home() {
+  const [expandedSubscriptionId, setExpandedSubscriptionId] = useState<
+    string | null
+  >(null);
+
+  const handleSubscriptionPress = (item: Subscription) => {
+    setExpandedSubscriptionId((current) =>
+      current === item.id ? null : item.id,
+    );
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-background p-5">
-      {/* header */}
-
       <FlatList
         ListHeaderComponent={() => (
           <>
@@ -71,7 +80,6 @@ export default function Home() {
               ></FlatList>
             </View>
 
-            {/* <View> */}
             <View className="list-head">
               <Text className="list-title">All Subscriptions</Text>
               <Pressable className="list-action">
@@ -82,10 +90,20 @@ export default function Home() {
         )}
         data={HOME_SUBSCRIPTIONS}
         renderItem={({ item }: { item: Subscription }) => (
-          <SubscriptionCard {...item} />
+          <SubscriptionCard
+            {...item}
+            onPress={() => handleSubscriptionPress(item)}
+            expanded={expandedSubscriptionId === item.id}
+          />
         )}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
+        // extraData={expandedSubscriptionId}
+        contentContainerClassName="pb-30"
+        ListEmptyComponent={
+          <Text className="home-empty-state">No subscriptions yet.</Text>
+        }
+        ItemSeparatorComponent={() => <View className="h-4" />}
       />
     </SafeAreaView>
   );

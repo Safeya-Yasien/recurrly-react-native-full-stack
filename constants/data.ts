@@ -103,6 +103,11 @@ export interface Subscription {
   color: string;
 }
 
+export interface SubscriptionCardProps extends Subscription {
+  onPress: () => void;
+  expanded: boolean;
+}
+
 export const HOME_SUBSCRIPTIONS: Subscription[] = [
   {
     id: "adobe-creative-cloud",
