@@ -11,6 +11,7 @@ make shadow on android only because react native not support shadowColor, shadow
 so we use shadowColor and elevation both
 shadowColor for IOS and elevation for android
 
+
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
