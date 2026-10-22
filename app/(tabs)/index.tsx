@@ -36,6 +36,7 @@ export default function Home() {
   return (
     <SafeAreaView className="flex-1 bg-background p-5">
       <Link href="/(auth)/sign-up">Open signup</Link>
+      <Link href="/(auth)/sign-in">Open sign in</Link>
       <Pressable onPress={() => signOut()}>
         <Text>Sign Out</Text>
       </Pressable>
