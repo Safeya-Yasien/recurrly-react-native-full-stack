@@ -11,8 +11,6 @@ import {
 import images from "@/constants/images";
 import { formatDate } from "@/utils/formatDate";
 import { formatPrice } from "@/utils/formatPrice";
-import { useAuth } from "@clerk/expo";
-import { Link } from "expo-router";
 import { styled } from "nativewind";
 import { useState } from "react";
 import { FlatList, Image, Pressable, Text, View } from "react-native";
@@ -31,15 +29,8 @@ export default function Home() {
     );
   };
 
-  const { signOut } = useAuth();
-
   return (
     <SafeAreaView className="flex-1 bg-background p-5">
-      <Link href="/(auth)/sign-up">Open signup</Link>
-      <Link href="/(auth)/sign-in">Open sign in</Link>
-      <Pressable onPress={() => signOut()}>
-        <Text>Sign Out</Text>
-      </Pressable>
       <FlatList
         ListHeaderComponent={() => (
           <>
