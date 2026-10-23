@@ -1,4 +1,6 @@
 import { useSignIn } from "@clerk/expo";
+import { posthog } from "@/constants/posthog";
+import { posthogLogger } from "@/constants/posthog-logger";
 import { Href, Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -54,6 +56,11 @@ const SignIn = () => {
     }
 
     if (signIn.status === "complete") {
+      posthog?.capture("sign_in_completed", {
+        authentication_method: "password",
+      });
+      posthogLogger.authenticationCompleted("password");
+
       await signIn.finalize({
         navigate: ({ session, decorateUrl }) => {
           if (session?.currentTask) return;
@@ -88,6 +95,11 @@ const SignIn = () => {
     await signIn.mfa.verifyEmailCode({ code });
 
     if (signIn.status === "complete") {
+      posthog?.capture("sign_in_completed", {
+        authentication_method: "email_code",
+      });
+      posthogLogger.authenticationCompleted("email_code");
+
       await signIn.finalize({
         navigate: ({ session, decorateUrl }) => {
           if (session?.currentTask) return;

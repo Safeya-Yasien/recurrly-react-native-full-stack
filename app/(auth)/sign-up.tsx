@@ -1,4 +1,6 @@
 import { useAuth, useSignUp } from "@clerk/expo";
+import { posthog } from "@/constants/posthog";
+import { posthogLogger } from "@/constants/posthog-logger";
 import { Href, Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -60,6 +62,7 @@ const SignUp = () => {
     const { error: sendError } = await signUp.verifications.sendEmailCode();
     if (sendError) return;
 
+    posthog?.capture("sign_up_verification_started");
     setIsVerifying(true);
   };
 
@@ -88,6 +91,9 @@ const SignUp = () => {
     if (finalizeError) {
       return;
     }
+
+    posthog?.capture("account_created");
+    posthogLogger.accountCreated();
   };
 
   if (!isLoaded) {

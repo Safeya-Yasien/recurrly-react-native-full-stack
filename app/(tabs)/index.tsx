@@ -1,5 +1,7 @@
 import SubscriptionCard from "@/components/SubscriptionCard";
 import UpcomingSubscriptionCard from "@/components/UpcomingSubscriptionCard";
+import { posthog } from "@/constants/posthog";
+import { posthogLogger } from "@/constants/posthog-logger";
 import {
   HOME_BALANCE,
   HOME_SUBSCRIPTIONS,
@@ -24,6 +26,19 @@ export default function Home() {
   >(null);
 
   const handleSubscriptionPress = (item: Subscription) => {
+    if (expandedSubscriptionId !== item.id) {
+      posthog?.capture("subscription_details_opened", {
+        category: item.category,
+        billing_interval: item.billing.toLowerCase(),
+        subscription_status: item.status,
+      });
+      posthogLogger.subscriptionDetailsOpened({
+        category: item.category,
+        billingInterval: item.billing.toLowerCase(),
+        status: item.status,
+      });
+    }
+
     setExpandedSubscriptionId((current) =>
       current === item.id ? null : item.id,
     );
