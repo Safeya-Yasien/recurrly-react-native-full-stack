@@ -7,4 +7,7 @@ module.exports = ({ config }) => ({
       host: process.env.EXPO_PUBLIC_POSTHOG_HOST,
     },
   },
+  android: {
+    package: "com.safeya.recurrly",
+  },
 });

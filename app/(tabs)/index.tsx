@@ -14,6 +14,7 @@ import { posthog } from "@/constants/posthog";
 import { posthogLogger } from "@/constants/posthog-logger";
 import { formatDate } from "@/utils/formatDate";
 import { formatPrice } from "@/utils/formatPrice";
+import { useRouter } from "expo-router";
 import { styled } from "nativewind";
 import { useState } from "react";
 import { FlatList, Image, Pressable, Text, View } from "react-native";
@@ -28,6 +29,8 @@ export default function Home() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [subscriptions, setSubscriptions] =
     useState<Subscription[]>(HOME_SUBSCRIPTIONS);
+
+  const router = useRouter();
 
   const handleSubscriptionPress = (item: Subscription) => {
     if (expandedSubscriptionId !== item.id) {
@@ -105,7 +108,10 @@ export default function Home() {
 
             <View className="list-head">
               <Text className="list-title">All Subscriptions</Text>
-              <Pressable className="list-action">
+              <Pressable
+                className="list-action"
+                onPress={() => router.navigate("/(tabs)/subscriptions")}
+              >
                 <Text className="list-action-text">View all</Text>
               </Pressable>
             </View>
