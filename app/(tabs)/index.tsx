@@ -1,7 +1,6 @@
+import CreateSubscriptionModal from "@/components/CreateSubscriptionModal";
 import SubscriptionCard from "@/components/SubscriptionCard";
 import UpcomingSubscriptionCard from "@/components/UpcomingSubscriptionCard";
-import { posthog } from "@/constants/posthog";
-import { posthogLogger } from "@/constants/posthog-logger";
 import {
   HOME_BALANCE,
   HOME_SUBSCRIPTIONS,
@@ -11,6 +10,8 @@ import {
   UpcomingSubscription,
 } from "@/constants/data";
 import images from "@/constants/images";
+import { posthog } from "@/constants/posthog";
+import { posthogLogger } from "@/constants/posthog-logger";
 import { formatDate } from "@/utils/formatDate";
 import { formatPrice } from "@/utils/formatPrice";
 import { styled } from "nativewind";
@@ -24,6 +25,9 @@ export default function Home() {
   const [expandedSubscriptionId, setExpandedSubscriptionId] = useState<
     string | null
   >(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [subscriptions, setSubscriptions] =
+    useState<Subscription[]>(HOME_SUBSCRIPTIONS);
 
   const handleSubscriptionPress = (item: Subscription) => {
     if (expandedSubscriptionId !== item.id) {
@@ -44,6 +48,10 @@ export default function Home() {
     );
   };
 
+  const handleCreateSubscription = (newSub: Subscription) => {
+    setSubscriptions((curr) => [newSub, ...curr]);
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-background p-5">
       <FlatList
@@ -56,7 +64,7 @@ export default function Home() {
               </View>
 
               <Pressable
-                onPress={() => console.log("press")}
+                onPress={() => setIsModalVisible(true)}
                 className="size-8 items-center justify-center rounded-full border border-muted-foreground"
               >
                 <Text className="text-2xl leading-none">+</Text>
@@ -103,7 +111,7 @@ export default function Home() {
             </View>
           </>
         )}
-        data={HOME_SUBSCRIPTIONS}
+        data={subscriptions}
         renderItem={({ item }: { item: Subscription }) => (
           <SubscriptionCard
             {...item}
@@ -113,12 +121,18 @@ export default function Home() {
         )}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-        // extraData={expandedSubscriptionId}
+        extraData={expandedSubscriptionId}
         contentContainerClassName="pb-30"
         ListEmptyComponent={
           <Text className="home-empty-state">No subscriptions yet.</Text>
         }
         ItemSeparatorComponent={() => <View className="h-4" />}
+      />
+
+      <CreateSubscriptionModal
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        onSubmit={handleCreateSubscription}
       />
     </SafeAreaView>
   );
