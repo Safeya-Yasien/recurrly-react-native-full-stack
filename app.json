@@ -63,8 +63,9 @@
       "posthog": {},
       "router": {},
       "eas": {
-        "projectId": "6e4c3b1a-58b5-4584-94ec-c11c13ad818b"
+        "projectId": "b2bfc6d8-404f-447d-a9ef-1304c9811686"
       }
-    }
+    },
+    "owner": "safeyayasien"
   }
 }
